@@ -1,5 +1,6 @@
 package com.stefanini.models;
 
+import com.stefanini.dto.UserCreationDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,15 @@ import static com.stefanini.intefaces.UserValidator.*;
 @AllArgsConstructor
 @Table(name = "TB_USER")
 public class Usuario {
-    public Usuario(String nome, String login, String email, String senha, LocalDate dataNascimento) {
-        this.nome = nome;
-        this.login = login;
-        this.email = email;
-        this.senha = senha;
-        this.dataNascimento = dataNascimento;
+
+    public Usuario(UserCreationDTO user){
+        this.nome = user.getNome();
+        this.login = user.getLogin();
+        this.email = user.getEmail();
+        this.senha = user.getSenha();
+        this.dataNascimento = user.getDataNascimento();
         this.dataCriacao = LocalDateTime.now();
+        this.dataAtualizacao = LocalDateTime.now();
     }
 
     @Id
@@ -35,7 +38,6 @@ public class Usuario {
     private Long Id;
 
     @Column(name = "USER_NAME")
-    @Max(value=50, message = "Name should not be greater than 50")
     @NotNull(message = NOT_NULL)
     @NotBlank(message = NOT_BLANK)
     private String nome;
@@ -49,29 +51,21 @@ public class Usuario {
     @Column(name = "USER_EMAIL", unique = true)
     @NotNull(message = NOT_NULL)
     @NotBlank(message = NOT_BLANK)
-    @Max(value=10, message = "Name should not be less than 10")
     @Email(message = NOT_VALID)
     private String email;
 
     @Column(name = "USER_PASSWORD")
-    @Pattern(regexp = PASSWORD_REGEX)
     @NotNull(message = NOT_NULL)
     @NotBlank(message = NOT_BLANK)
     @Size(min = 4, max = 10, message = "Password should be between 4 and 10 characters")
     private String senha;
 
     @Column(name = "USER_BORN_DATE")
-    @NotNull(message = NOT_NULL)
-    @NotBlank(message = NOT_BLANK)
     private LocalDate dataNascimento;
 
     @Column(name = "USER_ACCOUNT_CREATION_DATE")
-    @NotNull(message = NOT_NULL)
-    @NotBlank(message = NOT_BLANK)
     private LocalDateTime dataCriacao;
 
     @Column(name = "USER_ACCOUNT_LAST_ATT_DATE")
-    @NotNull(message = NOT_NULL)
-    @NotBlank(message = NOT_BLANK)
     private LocalDateTime dataAtualizacao;
 }
