@@ -56,6 +56,10 @@ public class GenericDAO<T, I>  {
         return em.createNativeQuery(query, clazz);
     }
 
+    public <J> TypedQuery<J> createQuery(String query, Class<J> classe) {
+        return em.createQuery(query, classe);
+    }
+
     public EntityManager getEntityManager() {
         return em;
     }

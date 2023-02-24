@@ -2,10 +2,8 @@ package com.stefanini.resources;
 
 import com.stefanini.dto.UserCreationDTO;
 import com.stefanini.dto.UserResponseDTO;
+import com.stefanini.exceptions.*;
 import com.stefanini.exceptions.BadRequestException;
-import com.stefanini.exceptions.UserAlreadyExistsException;
-import com.stefanini.exceptions.UserDoesntExistsException;
-import com.stefanini.exceptions.UserException;
 import com.stefanini.services.UserServices;
 
 import javax.inject.Inject;
@@ -70,6 +68,20 @@ public class UserResource {
         }catch (BadRequestException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    @GET
+    @Path("/birthday/{mes}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listByBirthday(@PathParam(value = "mes") int mes) throws InvalidDataException {
+        return Response.status(Response.Status.OK).entity(usuarioService.listByBirthday(mes)).build();
+    }
+
+    @GET
+    @Path("/emails")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listByEmails(){
+        return Response.status(Response.Status.OK).entity(usuarioService.listByEmails()).build();
     }
 
 }

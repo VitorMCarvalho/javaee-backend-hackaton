@@ -68,6 +68,19 @@ public class UserServices {
         return usuarioRepository.updateUser(user);
     }
 
+    public List<Usuario> listByBirthday(Integer mes) throws InvalidDataException {
+        if(mes>12 || mes<1){
+            throw new InvalidDataException("mes deve estar entre 1 e 12");
+        }else if(mes == null){
+            throw new InvalidDataException("mes nao pode ser nulo");
+        }else{
+            return usuarioRepository.listByBirthdays(mes);
+        }
+    }
+    public List<String> listByEmails(){
+            return usuarioRepository.listByEmails();
+    }
+
     public void verificarIntegridade(UserCreationDTO user) throws UserException {
         this.senhaValido(user.getSenha());
         this.nomeValido(user.getNome());
