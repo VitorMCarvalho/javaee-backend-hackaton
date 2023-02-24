@@ -14,27 +14,24 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCreationDTO {
+
+    public Long id;
     public String nome;
 
     public String login;
 
-    public String senha;
-
     public String email;
+
+    public String senha;
 
     public LocalDate dataNascimento;
 
-    public LocalDateTime dataCriacao;
-
-    public LocalDateTime dataAtualizacao;
-
     public UserCreationDTO(Usuario user){
+        this.id = user.getId();
         this.nome = user.getNome();
         this.login = user.getLogin();
         this.senha = user.getSenha();
         this.email = user.getEmail();
         this.dataNascimento = user.getDataNascimento();
-        this.dataCriacao = LocalDateTime.now();
-        this.dataAtualizacao = LocalDateTime.now();
     }
 }
